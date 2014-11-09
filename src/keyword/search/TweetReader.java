@@ -20,7 +20,7 @@ public class TweetReader {
 	/**
 	 * The readTweets method takes the file name of a .txt file containing
 	 * tweets and returns a hash map with each tweet stored as a value and
-	 * a unique key associated with each tweet.
+	 * a unique integer key associated with each tweet.
 	 *  
 	 * @param fileName This is the .txt file name with the tweets.
 	 * @return This returns the hash map of the tweets.
