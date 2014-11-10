@@ -1,12 +1,11 @@
 package keyword.search;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 
 /**
@@ -25,17 +24,16 @@ public class TweetReader {
 	 * @param fileName This is the .txt file name with the tweets.
 	 * @return This returns the hash map of the tweets.
 	 */
-	public HashMap<Integer, String> readTweets(String fileName){
+	public Map<Integer, String> readTweets(String fileName){
 		
 		int tweetCount = 0;
-		HashMap<Integer, String> tweetsMap = new HashMap<Integer, String>(); 
+		Map<Integer, String> tweetsMap = new HashMap<Integer, String>(); 
 		Path filePath = Paths.get(fileName);
 		
-		try (BufferedReader fileReader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8)) {
-			String line = null;
-			while ((line = fileReader.readLine()) != null) {
-				tweetsMap.put(tweetCount, line);
+		try(Scanner scanner = new Scanner(filePath)) {
+			while (scanner.hasNextLine()) {
 				tweetCount++;
+				tweetsMap.put(tweetCount, scanner.nextLine());
 			}
 		} catch(IOException e) {
 			System.out.println("IOException Error: " + e.getMessage());
