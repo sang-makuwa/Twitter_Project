@@ -25,12 +25,13 @@ public class TweetReader {
 	 * @return This returns the hash map of the tweets.
 	 */
 	public Map<Integer, String> readTweets(String fileName){
-		
-		int tweetCount = 0;
+
 		Map<Integer, String> tweetsMap = new HashMap<Integer, String>(); 
 		Path filePath = Paths.get(fileName);
 		
 		try(Scanner scanner = new Scanner(filePath)) {
+			int tweetCount = 0;
+			
 			while (scanner.hasNextLine()) {
 				tweetCount++;
 				tweetsMap.put(tweetCount, scanner.nextLine());
@@ -41,5 +42,5 @@ public class TweetReader {
 		
 		return tweetsMap;
 	}
-
+	
 }
