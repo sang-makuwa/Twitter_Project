@@ -18,7 +18,7 @@ public class KeywordTester {
 		
 		try {
 			System.out.println("Reading in Tweets...");
-			tweetDataBase = tweetReader.readTweets("res/tweets.txt");
+			tweetDataBase = tweetReader.readTweets("res/test_tweets.txt");
 			System.out.println("File contains " + tweetDataBase.size() + " tweets.\n");
 			
 		} catch (IOException e) {
@@ -30,13 +30,11 @@ public class KeywordTester {
 		/*
 		 * Creates inverted index
 		 */
-		Map<String, List<Integer>> wordIndexDB;
+		WordsTrie wordIndexDB;
 		TweetWordIndex wordIndex = new TweetWordIndex();
 		
 		System.out.println("Indexing Words...");
 		wordIndexDB = wordIndex.createIndex(tweetDataBase);
-		System.out.println("Tweets contain " + wordIndexDB.size() + " unique words.\n");
-
 		
 		/*
 		 * Finds tweets with keyword
@@ -54,7 +52,7 @@ public class KeywordTester {
 					done = true;
 				} else {
 					
-					tweetsList = wordIndexDB.get(text);
+					tweetsList = wordIndexDB.getTweets(text);
 					
 					if (tweetsList != null) {
 						for (Integer tweet : tweetsList) {

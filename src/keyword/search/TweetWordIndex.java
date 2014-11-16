@@ -1,8 +1,5 @@
 package keyword.search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,28 +21,20 @@ public class TweetWordIndex {
 	 * @return A hashmap with keys of all the words in the tweets and values of
 	 * ArrayLists of tweets which contain that word.
 	 */
-	Map<String, List<Integer>> createIndex(Map<Integer, String> tweetsMap) {
-		Map<String, List<Integer>> tweetWordMap = new HashMap<String, List<Integer>>();
+	WordsTrie createIndex(Map<Integer, String> tweetsMap) {
+		WordsTrie tweetWordsTrie = new WordsTrie();
 
 		for (Map.Entry<Integer, String> tweetEntry : tweetsMap.entrySet()) {
 			
 			String[] words = tweetEntry.getValue().split("\\s+");
 			
 			for (String word: words){
-				word = word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+				word = word.replaceAll("[^a-zA-Z]", "").toLowerCase();
 				
-				List<Integer> tweetsList = tweetWordMap.get(word);
-				
-				if (tweetsList == null) {
-					tweetsList = new ArrayList<Integer>();
-					tweetsList.add(tweetEntry.getKey());
-					tweetWordMap.put(word, tweetsList);
-				} else {
-					tweetsList.add(tweetEntry.getKey());
-				}	
+				tweetWordsTrie.addWord(word, tweetEntry.getKey());
 			}
 		}
 		
-		return tweetWordMap;
+		return tweetWordsTrie;
 	}
 }
