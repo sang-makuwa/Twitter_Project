@@ -25,28 +25,27 @@ public class TweetWordIndex {
 	 * ArrayLists of tweets which contain that word.
 	 */
 	Map<String, List<Integer>> createIndex(Map<Integer, String> tweetsMap) {
-		Map<String, List<Integer>> tweetWordIndex = new HashMap<String, List<Integer>>();
+		Map<String, List<Integer>> tweetWordMap = new HashMap<String, List<Integer>>();
 
 		for (Map.Entry<Integer, String> tweetEntry : tweetsMap.entrySet()) {
 			
 			String[] words = tweetEntry.getValue().split("\\s+");
 			
 			for (String word: words){
-				word = word.replaceAll("[^a-zA-Z0-9]", "");
-				word = word.toLowerCase();
+				word = word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 				
-				List<Integer> tweetsList = tweetWordIndex.get(word);
+				List<Integer> tweetsList = tweetWordMap.get(word);
 				
 				if (tweetsList == null) {
 					tweetsList = new ArrayList<Integer>();
 					tweetsList.add(tweetEntry.getKey());
-					tweetWordIndex.put(word, tweetsList);
+					tweetWordMap.put(word, tweetsList);
 				} else {
 					tweetsList.add(tweetEntry.getKey());
 				}	
 			}
 		}
 		
-		return tweetWordIndex;
+		return tweetWordMap;
 	}
 }

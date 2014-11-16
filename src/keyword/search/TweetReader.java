@@ -24,7 +24,7 @@ public class TweetReader {
 	 * @param fileName This is the .txt file name with the tweets.
 	 * @return This returns the hash map of the tweets.
 	 */
-	public Map<Integer, String> readTweets(String fileName){
+	public Map<Integer, String> readTweets(String fileName) throws IOException {
 
 		Map<Integer, String> tweetsMap = new HashMap<Integer, String>(); 
 		Path filePath = Paths.get(fileName);
@@ -36,8 +36,6 @@ public class TweetReader {
 				tweetCount++;
 				tweetsMap.put(tweetCount, scanner.nextLine());
 			}
-		} catch(IOException e) {
-			System.out.println("IOException Error: " + e.getMessage());
 		}
 		
 		return tweetsMap;
