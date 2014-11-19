@@ -18,24 +18,25 @@ public class KeywordTester {
 		
 		KeywordTester tester = new KeywordTester();
 		
-		tester.readTweetFile();
-		tester.createWordIndex();
-		tester.searchIndex();
-		
-	}
-	
-	private void readTweetFile(){
-		
-		try {
-			System.out.println("Reading in Tweets...");
-			tweetsStorage = tweetReader.readTweets("res/tweets.txt");
-			System.out.println("File contains " + tweetsStorage.size() + " tweets.\n");
+		try{
+			
+			tester.readTweetFile();
+			tester.createWordIndex();
+			tester.searchIndex();
 			
 		} catch (IOException e) {
 			System.out.println("Unable to read in file.");
 			return;
 		}
 		
+	}
+	
+	private void readTweetFile() throws IOException{
+		
+			System.out.println("Reading in Tweets...");
+			tweetsStorage = tweetReader.readTweets("res/tweets.txt");
+			System.out.println("File contains " + tweetsStorage.size() + " tweets.\n");	
+			
 	}
 	
 	private void createWordIndex(){
