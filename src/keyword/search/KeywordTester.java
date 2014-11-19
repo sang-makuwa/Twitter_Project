@@ -7,36 +7,46 @@ import java.util.List;
 import java.util.Map;
 
 public class KeywordTester {
-
+	
+	private Map<Integer, String> tweetsStorage;
+	private WordsTrie wordIndexDB;
+	
+	private final TweetReader tweetReader = new TweetReader();
+	private final TweetWordIndex wordIndex = new TweetWordIndex();
+	
 	public static void main(String[] args) {
 		
-		/*
-		 * Reads in Tweets
-		 */
-		Map<Integer, String> tweetDataBase;
-		TweetReader tweetReader = new TweetReader();
+		KeywordTester tester = new KeywordTester();
+		
+		tester.readTweetFile();
+		tester.createWordIndex();
+		tester.searchIndex();
+		
+	}
+	
+	private void readTweetFile(){
 		
 		try {
 			System.out.println("Reading in Tweets...");
-			tweetDataBase = tweetReader.readTweets("res/tweets.txt");
-			System.out.println("File contains " + tweetDataBase.size() + " tweets.\n");
+			tweetsStorage = tweetReader.readTweets("res/tweets.txt");
+			System.out.println("File contains " + tweetsStorage.size() + " tweets.\n");
 			
 		} catch (IOException e) {
 			System.out.println("Unable to read in file.");
 			return;
 		}
 		
+	}
+	
+	private void createWordIndex(){
 		
-		/*
-		 * Creates inverted index
-		 */
 		System.out.println("Indexing Words...");
-		TweetWordIndex wordIndex = new TweetWordIndex();
-		WordsTrie wordIndexDB = wordIndex.createIndex(tweetDataBase);
+		wordIndexDB = wordIndex.createIndex(tweetsStorage);
+	
+	}
+	
+	private void searchIndex(){
 		
-		/*
-		 * Finds tweets with keyword
-		 */
 		List<Integer> tweetsList;
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in)); 
 		
@@ -55,7 +65,7 @@ public class KeywordTester {
 					if (tweetsList != null) {
 						for (Integer tweet : tweetsList) {
 							System.out.println(tweet);
-							System.out.println(tweetDataBase.get(tweet));
+							System.out.println(tweetsStorage.get(tweet));
 						}
 					} else {
 						System.out.println("Word not in the tweet database.");
@@ -63,11 +73,11 @@ public class KeywordTester {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		System.out.println("done");
+		
 	}
 
 }
