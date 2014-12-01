@@ -21,7 +21,12 @@ public class KeywordTester {
 		try{
 			
 			tester.readTweetFile();
+			
+			long t1 = System.nanoTime();
 			tester.createWordIndex();
+			long t2 = System.nanoTime();
+			System.out.println((t2 - t1)/1000000000.0);
+			
 			tester.searchIndex();
 			
 		} catch (IOException e) {
@@ -34,7 +39,7 @@ public class KeywordTester {
 	private void readTweetFile() throws IOException{
 		
 			System.out.println("Reading in Tweets...");
-			tweetsStorage = tweetReader.readTweets("res/tweets.txt");
+			tweetsStorage = tweetReader.readTweets("res/test_tweets.txt");
 			System.out.println("File contains " + tweetsStorage.size() + " tweets.\n");	
 			
 	}
