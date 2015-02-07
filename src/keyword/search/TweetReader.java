@@ -3,8 +3,8 @@ package keyword.search;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -24,21 +24,21 @@ public class TweetReader {
 	 * @param fileName This is the .txt file name with the tweets.
 	 * @return This returns the hash map of the tweets.
 	 */
-	public Map<Integer, String> readTweets(String fileName) throws IOException {
+	public ArrayList<String> readTweets(String fileName) throws IOException {
 
-		Map<Integer, String> tweetsMap = new HashMap<Integer, String>(); 
+		ArrayList<String> tweetsArray = new ArrayList<String>(); 
 		Path filePath = Paths.get(fileName);
 		
 		try(Scanner scanner = new Scanner(filePath)) {
 			int tweetCount = 0;
 			
 			while (scanner.hasNextLine()) {
+				tweetsArray.add(tweetCount, scanner.nextLine());
 				tweetCount++;
-				tweetsMap.put(tweetCount, scanner.nextLine());
 			}
 		}
 		
-		return tweetsMap;
+		return tweetsArray;
 	}
 	
 }
